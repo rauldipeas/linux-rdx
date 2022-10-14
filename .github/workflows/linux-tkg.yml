@@ -19,7 +19,10 @@ jobs:
           sudo rm -rf "$AGENT_TOOLSDIRECTORY" /opt/az /swapfile /usr/share/dotnet /usr/local/share/boost
           df -h
       - name: Execução do script de compilação
-        run: pwd
+        run: |
+          ls -la /home/runner/work/linux-tkg-rauldipeas/linux-tkg-rauldipeas
+          mkdir -pv /home/runner/work/linux-tkg-rauldipeas/linux-tkg-rauldipeas/linux-tkg/DEBS
+          touch /home/runner/work/linux-tkg-rauldipeas/linux-tkg-rauldipeas/TESTE
 #        run: bash ./linux-tkg-build.sh
       - name: Upload dos pacotes para o lançamento
         uses: svenstaro/upload-release-action@v2
