@@ -11,4 +11,4 @@ jobs:
     steps:
       - uses: actions/checkout@v3
       - name: Execuç
-        run: cd bash ./linux-tkg-build.sh
+        run: bash ./linux-tkg-build.sh
