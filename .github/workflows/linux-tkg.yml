@@ -22,13 +22,14 @@ jobs:
         run: |
           ls -la /home/runner/work/linux-tkg-rauldipeas/linux-tkg-rauldipeas
           mkdir -pv /home/runner/work/linux-tkg-rauldipeas/linux-tkg-rauldipeas/linux-tkg/DEBS
-          touch /home/runner/work/linux-tkg-rauldipeas/linux-tkg-rauldipeas/linux-tkg/DEBS/TESTE
+          cd /home/runner/work/linux-tkg-rauldipeas/linux-tkg-rauldipeas/linux-tkg/DEBS/
+          wget -c https://go.skype.com/skypeforlinux-64.deb
 #        run: bash ./linux-tkg-build.sh
       - name: Upload dos pacotes para o lançamento
         uses: svenstaro/upload-release-action@v2
         with:
           repo_token: ${{ secrets.GH_TOKEN }}
-          file: /home/runner/work/linux-tkg-rauldipeas/linux-tkg-rauldipeas/linux-tkg/DEBS/TESTE
+          file: /home/runner/work/linux-tkg-rauldipeas/linux-tkg-rauldipeas/linux-tkg/DEBS/
           asset_name: linux-tkg-rauldipeas
           tag: ${{ github.ref }}
           overwrite: true
