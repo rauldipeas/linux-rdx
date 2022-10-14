@@ -20,3 +20,12 @@ jobs:
           df -h
       - name: Execução do script de compilação
         run: bash ./linux-tkg-build.sh
+      - name: Upload dos pacotes para o lançamento
+        uses: svenstaro/upload-release-action@v2
+        with:
+          repo_token: ${{ secrets.GITHUB_TOKEN }}
+          file: linux-tkg/DEBS/*
+          asset_name: linux-tkg-rauldipeas
+          tag: ${{ github.ref }}
+          overwrite: true
+          body: "Linux TkG Raul Dipeas"
