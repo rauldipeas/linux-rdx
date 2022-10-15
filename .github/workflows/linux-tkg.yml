@@ -20,16 +20,12 @@ jobs:
           df -h
       - name: Execução do script de compilação
         run: bash ./linux-tkg-build.sh
-      - name: Variáveis de ambiente para o lançamento
-        run: |
-          echo ::set-env name=RELEASE_TAG::"v6.0.1"
-          echo ::set-env name=RELEASE_NAME::"$GITHUB_WORKFLOW"
       - name: Upload dos pacotes para o lançamento
         uses: meeDamian/github-release@2.0
         with:
           token: ${{ secrets.GH_TOKEN }}
-          tag: ${{ env.RELEASE_TAG }}
-          name: ${{ env.RELEASE_NAME }}
+          tag: v6.0.1
+          name: Linux TkG Raul Dipeas
           files: linux-tkg/DEBS/*
           gzip: false
           allow_override: true
