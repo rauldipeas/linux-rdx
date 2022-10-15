@@ -29,6 +29,6 @@ jobs:
         uses: meeDamian/github-release@2.0
         with:
           token: ${{ secrets.GH_TOKEN }}
-          tag: ${{ env.RELEASE_TAG }}
-          name: ${{ env.RELEASE_NAME }}
+          tag: 0.1
+          name: Linux TkG Raul Dipeas
           files: /home/runner/work/linux-tkg-rauldipeas/linux-tkg-rauldipeas/linux-tkg/DEBS/*
