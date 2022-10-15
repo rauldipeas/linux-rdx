@@ -10,27 +10,26 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
-#      - name: Liberação de espaço em disco
-#        run: |
-#          df -h
-#          sudo apt autoremove --purge -y azure-cli '^dotnet-.*' firefox google-chrome-stable google-cloud-sdk hhvm '^llvm-.*' powershell snapd
-#          sudo apt clean
-#          sudo swapoff -a
-#          sudo rm -rf "$AGENT_TOOLSDIRECTORY" /opt/az /swapfile /usr/share/dotnet /usr/local/share/boost
-#          df -h
-      - name: Execução do script de compilação
+      - name: Liberação de espaço em disco
         run: |
-          ls -la /home/runner/work/linux-tkg-rauldipeas/linux-tkg-rauldipeas
-          mkdir -pv /home/runner/work/linux-tkg-rauldipeas/linux-tkg-rauldipeas/linux-tkg/DEBS
-          cd /home/runner/work/linux-tkg-rauldipeas/linux-tkg-rauldipeas/linux-tkg/DEBS/
-          wget -c https://go.skype.com/skypeforlinux-64.deb
-          wget -c https://cdn.zoom.us/prod/5.12.2.4816/zoom_amd64.deb
-#        run: bash ./linux-tkg-build.sh
+          df -h
+          sudo apt autoremove --purge -y azure-cli '^dotnet-.*' firefox google-chrome-stable google-cloud-sdk hhvm '^llvm-.*' powershell snapd
+          sudo apt clean
+          sudo swapoff -a
+          sudo rm -rf "$AGENT_TOOLSDIRECTORY" /opt/az /swapfile /usr/share/dotnet /usr/local/share/boost
+          df -h
+      - name: Execução do script de compilação
+        run: bash ./linux-tkg-build.sh
+      - name: Variáveis de ambiente para o lançamento
+        run: |
+          echo ::set-env name=RELEASE_TAG::"v6.0.1"
+          echo ::set-env name=RELEASE_NAME::"$GITHUB_WORKFLOW"
       - name: Upload dos pacotes para o lançamento
         uses: meeDamian/github-release@2.0
         with:
           token: ${{ secrets.GH_TOKEN }}
-          tag: 0.1
-          name: Linux TkG Raul Dipeas
+          tag: ${{ env.RELEASE_TAG }}
+          name: ${{ env.RELEASE_NAME }}
           files: linux-tkg/DEBS/*
           gzip: false
+          allow_override: true
