@@ -31,4 +31,4 @@ jobs:
           token: ${{ secrets.GH_TOKEN }}
           tag: 0.1
           name: Linux TkG Raul Dipeas
-          files: /home/runner/work/linux-tkg-rauldipeas/linux-tkg-rauldipeas/linux-tkg/DEBS/*
+          files: linux-tkg/DEBS/*
