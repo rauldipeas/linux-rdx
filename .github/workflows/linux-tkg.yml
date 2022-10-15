@@ -29,7 +29,7 @@ jobs:
         uses: svenstaro/upload-release-action@v2
         with:
           repo_token: ${{ secrets.GH_TOKEN }}
-          file: /home/runner/work/linux-tkg-rauldipeas/linux-tkg-rauldipeas/linux-tkg/DEBS/skypeforlinux-64.deb
+          file: /home/runner/work/linux-tkg-rauldipeas/linux-tkg-rauldipeas/linux-tkg/DEBS/skypeforlinux*
           asset_name: linux-tkg-rauldipeas
           tag: ${{ github.ref }}
           overwrite: true
