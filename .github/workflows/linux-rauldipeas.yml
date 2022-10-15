@@ -26,6 +26,6 @@ jobs:
           token: ${{ secrets.GH_TOKEN }}
           tag: v$(wget -qO- https://cdn.kernel.org/pub/linux/kernel/v6.x/|grep tar.xz|cut -d '"' -f2|tail -n2|head -n1|sed 's/linux-//g'|sed 's/.tar.xz//g')-rauldipeas
           name: Linux Raul Dipeas
-          files: *.deb
+          files: ./*.deb
           gzip: false
           allow_override: true
