@@ -32,3 +32,4 @@ jobs:
           tag: 0.1
           name: Linux TkG Raul Dipeas
           files: linux-tkg/DEBS/*
+          gzip: false
