@@ -1,4 +1,4 @@
-name: Compilação do kernel Linux TkG
+name: Compilação do kernel Linux Raul Dipeas
 on:
   push:
     branches: [ "main" ]
@@ -19,13 +19,13 @@ jobs:
           sudo rm -rf "$AGENT_TOOLSDIRECTORY" /opt/az /swapfile /usr/share/dotnet /usr/local/share/boost
           df -h
       - name: Execução do script de compilação
-        run: bash ./linux-tkg-build.sh
+        run: bash ./build.sh
       - name: Upload dos pacotes para o lançamento
         uses: meeDamian/github-release@2.0
         with:
           token: ${{ secrets.GH_TOKEN }}
-          tag: v6.0.1
-          name: Linux TkG Raul Dipeas
-          files: linux-tkg/DEBS/*
+          tag: v$(wget -qO- https://cdn.kernel.org/pub/linux/kernel/v6.x/|grep tar.xz|cut -d '"' -f2|tail -n2|head -n1|sed 's/linux-//g'|sed 's/.tar.xz//g')-rauldipeas
+          name: Linux Raul Dipeas
+          files: *.deb
           gzip: false
           allow_override: true
