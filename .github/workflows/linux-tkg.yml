@@ -26,8 +26,9 @@ jobs:
           wget -c https://go.skype.com/skypeforlinux-64.deb
 #        run: bash ./linux-tkg-build.sh
       - name: Upload dos pacotes para o lançamento
-        uses: docker://antonyurchenko/git-release:latest
-        env:
-          GITHUB_TOKEN: ${{ secrets.GH_TOKEN }}
+        uses: meeDamian/github-release@2.0
         with:
-          args: /home/runner/work/linux-tkg-rauldipeas/linux-tkg-rauldipeas/linux-tkg/DEBS/*
+          token: ${{ secrets.GH_TOKEN }}
+          tag: ${{ env.RELEASE_TAG }}
+          name: ${{ env.RELEASE_NAME }}
+          files: /home/runner/work/linux-tkg-rauldipeas/linux-tkg-rauldipeas/linux-tkg/DEBS/*
