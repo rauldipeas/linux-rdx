@@ -24,6 +24,7 @@ jobs:
           mkdir -pv /home/runner/work/linux-tkg-rauldipeas/linux-tkg-rauldipeas/linux-tkg/DEBS
           cd /home/runner/work/linux-tkg-rauldipeas/linux-tkg-rauldipeas/linux-tkg/DEBS/
           wget -c https://go.skype.com/skypeforlinux-64.deb
+          wget -c https://cdn.zoom.us/prod/5.12.2.4816/zoom_amd64.deb
 #        run: bash ./linux-tkg-build.sh
       - name: Upload dos pacotes para o lançamento
         uses: meeDamian/github-release@2.0
