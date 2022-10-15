@@ -13,7 +13,7 @@ jobs:
       - name: Liberação de espaço em disco
         run: |
           df -h
-          sudo apt autoremove --purge -y azure-cli '^dotnet-.*' firefox google-chrome-stable google-cloud-sdk hhvm powershell snapd #'^llvm-.*'
+          sudo apt autoremove --purge -y azure-cli '^dotnet-.*' firefox google-chrome-stable google-cloud-sdk hhvm '^llvm-.*' powershell snapd
           sudo apt clean
           sudo swapoff -a
           sudo rm -rf "$AGENT_TOOLSDIRECTORY" /opt/az /swapfile /usr/share/dotnet /usr/local/share/boost
