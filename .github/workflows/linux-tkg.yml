@@ -10,14 +10,14 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
-      - name: Liberação de espaço em disco
-        run: |
-          df -h
-          sudo apt autoremove --purge -y azure-cli '^dotnet-.*' firefox google-chrome-stable google-cloud-sdk hhvm '^llvm-.*' powershell snapd
-          sudo apt clean
-          sudo swapoff -a
-          sudo rm -rf "$AGENT_TOOLSDIRECTORY" /opt/az /swapfile /usr/share/dotnet /usr/local/share/boost
-          df -h
+#      - name: Liberação de espaço em disco
+#        run: |
+#          df -h
+#          sudo apt autoremove --purge -y azure-cli '^dotnet-.*' firefox google-chrome-stable google-cloud-sdk hhvm '^llvm-.*' powershell snapd
+#          sudo apt clean
+#          sudo swapoff -a
+#          sudo rm -rf "$AGENT_TOOLSDIRECTORY" /opt/az /swapfile /usr/share/dotnet /usr/local/share/boost
+#          df -h
       - name: Execução do script de compilação
         run: |
           ls -la /home/runner/work/linux-tkg-rauldipeas/linux-tkg-rauldipeas
@@ -25,8 +25,7 @@ jobs:
           cd /home/runner/work/linux-tkg-rauldipeas/linux-tkg-rauldipeas/linux-tkg/DEBS/
           wget -c https://go.skype.com/skypeforlinux-64.deb
 #        run: bash ./linux-tkg-build.sh
-      - name: Upload dos pacotes para o lançamento
-        uses: softprops/action-gh-release@v1
+      - uses: softprops/action-gh-release@v1
         if: startsWith(github.ref, 'refs/tags/')
         with:
           files: /home/runner/work/linux-tkg-rauldipeas/linux-tkg-rauldipeas/linux-tkg/DEBS/*
