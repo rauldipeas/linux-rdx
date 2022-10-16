@@ -18,7 +18,7 @@ jobs:
           sudo swapoff -a
           sudo rm -rf "$AGENT_TOOLSDIRECTORY" /opt/az /swapfile /usr/share/dotnet /usr/local/share/boost
           df -h
-      - name: Execução do script de compilação
+      - name: Compilação do kernel
         run: bash ./build.sh
       - name: Upload dos pacotes para o lançamento
         uses: meeDamian/github-release@2.0
