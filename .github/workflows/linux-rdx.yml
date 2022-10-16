@@ -21,7 +21,7 @@ jobs:
 #      - name: Execução do script de compilação
 #        run: bash ./build.sh
       - name: Variáveis de ambiente para o lançamento
-        run: export RELEASE_TAG="echo v$(wget -qO- https://cdn.kernel.org/pub/linux/kernel/v6.x/|grep tar.xz|cut -d \" -f2|tail -n2|head -n1|sed 's/linux-//g'|sed 's/.tar.xz//g')-rdx"
+        run: export RELEASE_TAG="v$(wget -qO- https://cdn.kernel.org/pub/linux/kernel/v6.x/|grep tar.xz|cut -d \" -f2|tail -n2|head -n1|sed 's/linux-//g'|sed 's/.tar.xz//g')-rdx"
       - name: Upload dos pacotes para o lançamento
         uses: meeDamian/github-release@2.0
         with:
