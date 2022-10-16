@@ -8,4 +8,4 @@ cd ./linux-$(wget -qO- https://cdn.kernel.org/pub/linux/kernel/v6.x/|grep tar.xz
 make defconfig
 make clean
 make -j `getconf _NPROCESSORS_ONLN`
-make deb-pkg LOCALVERSION=-rauldipeas
+make deb-pkg LOCALVERSION=-rdx
