@@ -20,12 +20,17 @@ jobs:
           df -h
       - name: Execução do script de compilação
         run: bash ./build.sh
+      - name: Variáveis de ambiente para o lançamento
+        run: echo "$RELEASE_NAME $RELEASE_TAG"
+        env:
+          RELEASE_NAME: Linux Raul Dipeas
+          RELEASE_TAG: echo v$(wget -qO- https://cdn.kernel.org/pub/linux/kernel/v6.x/|grep tar.xz|cut -d '"' -f2|tail -n2|head -n1|sed 's/linux-//g'|sed 's/.tar.xz//g')-rauldipeas
       - name: Upload dos pacotes para o lançamento
         uses: meeDamian/github-release@2.0
         with:
           token: ${{ secrets.GH_TOKEN }}
-          tag: v$(wget -qO- https://cdn.kernel.org/pub/linux/kernel/v6.x/|grep tar.xz|cut -d '"' -f2|tail -n2|head -n1|sed 's/linux-//g'|sed 's/.tar.xz//g')
-          name: Linux Raul Dipeas
+          tag: ${{ env.RELEASE_TAG }}
+          name: ${{ env.RELEASE_NAME }}
           files: ./*.deb
           gzip: false
           allow_override: true
