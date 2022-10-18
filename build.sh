@@ -11,6 +11,6 @@ cp ../kernel-config .config
 #rm -rfv drivers/gpu/drm/amd/pm/powerplay/hwmqr/vega12_hwmgr.c
 #rm -rfv drivers/gpu/drm/amd/pm/powerplay/hwmqr/vega20_hwmgr.c
 rm -rfv mm/z3fold.c
-rm -rfv security/integrity/iintc.c
+#rm -rfv security/integrity/iintc.c
 make olddefconfig
 make CC=clang -j `getconf _NPROCESSORS_ONLN` deb-pkg LOCALVERSION=-rdx
