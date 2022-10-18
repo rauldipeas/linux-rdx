@@ -6,5 +6,6 @@ wget -c https://cdn.kernel.org/pub/linux/kernel/v6.x/$(wget -qO- https://cdn.ker
 tar xavf $(wget -qO- https://cdn.kernel.org/pub/linux/kernel/v6.x/|grep tar.xz|cut -d '"' -f2|tail -n2|head -n1)
 cd ./linux-$(wget -qO- https://cdn.kernel.org/pub/linux/kernel/v6.x/|grep tar.xz|cut -d '"' -f2|tail -n2|head -n1|sed 's/linux-//g'|sed 's/.tar.xz//g')
 cp ../kernel-config .config
+cp -rfv ../revertions/kernel-tree/* .
 make CC=clang olddefconfig
 make CC=clang -j `getconf _NPROCESSORS_ONLN` deb-pkg LOCALVERSION=-rdx

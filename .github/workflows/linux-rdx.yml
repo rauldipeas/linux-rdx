@@ -20,20 +20,8 @@ jobs:
           df -h
       - name: Compilação do kernel
         run: bash ./build.sh
-      - name: Upload dos pacotes para o lançamento
-        uses: meeDamian/github-release@2.0
+      - name: Upload dos artefatos
+        uses: actions/upload-artifact@v3
         with:
-          token: ${{ secrets.GH_TOKEN }}
-          tag: v6.0.2
-          name: Linux RDX
-          files: ./*.deb
-          gzip: false
-          allow_override: true
-          body: >
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-            Etiam eget ligula eu lectus lobortis condimentum.
-            Aliquam nonummy auctor massa.
-            Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas.
-            Nulla at risus.
-            Quisque purus magna, auctor et, sagittis ac, posuere eu, lectus.
-            Nam mattis, felis ut adipiscing.
+          name: linux-rdx
+          path: ./*.deb
