@@ -9,5 +9,5 @@ cp ../kernel-config .config
 make olddefconfig
 #make defconfig
 make clean
-make V=1 -j `getconf _NPROCESSORS_ONLN`
-make deb-pkg LOCALVERSION=-rdx
+make -j `getconf _NPROCESSORS_ONLN` deb-pkg LOCALVERSION=-rdx
+#make deb-pkg LOCALVERSION=-rdx
