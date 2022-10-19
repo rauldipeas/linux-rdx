@@ -19,9 +19,11 @@ jobs:
           sudo rm -rf "$AGENT_TOOLSDIRECTORY" /opt/az /swapfile /usr/share/dotnet /usr/local/share/boost
           df -h
       - name: Compilação do kernel
-        run: bash ./build.sh
+#        run: bash ./build.sh
+        run: bash ./build-tkg.sh
       - name: Upload dos artefatos
         uses: actions/upload-artifact@v3
         with:
           name: linux-rdx
-          path: ./*.deb
+#          path: ./*.deb
+          path: linux-tkg/DEBS/*.deb
