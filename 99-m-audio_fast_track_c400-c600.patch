@@ -1,0 +1,12 @@
+diff -urpN b/sound/usb/implicit.c a/sound/usb/implicit.c
+--- b/sound/usb/implicit.c	2022-10-19 08:03:27.599194029 -0300
++++ a/sound/usb/implicit.c	2022-10-19 08:04:35.733180058 -0300
+@@ -49,6 +49,8 @@ static const struct snd_usb_implicit_fb_
+ 	/* FIXME: check the availability of generic matching */
+ 	IMPLICIT_FB_FIXED_DEV(0x0763, 0x2080, 0x81, 2), /* M-Audio FastTrack Ultra */
+ 	IMPLICIT_FB_FIXED_DEV(0x0763, 0x2081, 0x81, 2), /* M-Audio FastTrack Ultra */
++	IMPLICIT_FB_FIXED_DEV(0x0763, 0x2030, 0x81, 3), /* M-Audio Fast Track C400 */
++	IMPLICIT_FB_FIXED_DEV(0x0763, 0x2031, 0x81, 3), /* M-Audio Fast Track C600 */
+ 	IMPLICIT_FB_FIXED_DEV(0x2466, 0x8010, 0x81, 2), /* Fractal Audio Axe-Fx III */
+ 	IMPLICIT_FB_FIXED_DEV(0x31e9, 0x0001, 0x81, 2), /* Solid State Logic SSL2 */
+ 	IMPLICIT_FB_FIXED_DEV(0x31e9, 0x0002, 0x81, 2), /* Solid State Logic SSL2+ */
