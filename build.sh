@@ -6,7 +6,7 @@ wget -c https://cdn.kernel.org/pub/linux/kernel/v6.x/$(wget -qO- https://cdn.ker
 tar xavf $(wget -qO- https://cdn.kernel.org/pub/linux/kernel/v6.x/|grep tar.xz|cut -d '"' -f2|tail -n2|head -n1)
 cd ./linux-$(wget -qO- https://cdn.kernel.org/pub/linux/kernel/v6.x/|grep tar.xz|cut -d '"' -f2|tail -n2|head -n1|sed 's/linux-//g'|sed 's/.tar.xz//g')
 patch -p1<../99-m-audio_fast_track_c400-c600.patch
-wget -O .config https://raw.githubusercontent.com/archlinux/svntogit-packages/packages/linux/trunk/config
+wget -O .config wget https://kernel.ubuntu.com/~kernel-ppa/config/jammy/linux/$(wget -qO- https://kernel.ubuntu.com/~kernel-ppa/config/jammy/linux/|grep href|cut -d '"' -f8|tail -n1)amd64-config.flavour.lowlatency
 sed -i 's/CONFIG_DEFAULT_HOSTNAME/#CONFIG_DEFAULT_HOSTNAME/g' .config
 make olddefconfig
 scripts/config --disable DEBUG_INFO
