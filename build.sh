@@ -6,5 +6,6 @@ wget -c https://cdn.kernel.org/pub/linux/kernel/v6.x/$(wget -qO- https://cdn.ker
 tar xavf $(wget -qO- https://cdn.kernel.org/pub/linux/kernel/v6.x/|grep tar.xz|cut -d '"' -f2|tail -n2|head -n1)
 cd ./linux-$(wget -qO- https://cdn.kernel.org/pub/linux/kernel/v6.x/|grep tar.xz|cut -d '"' -f2|tail -n2|head -n1|sed 's/linux-//g'|sed 's/.tar.xz//g')
 cp ../sound-usb-implicit-c400-fix.c sound/usb/implicit.c
-make CC=clang defconfig
+cp ../kernel-config .config
+make CC=clang olddefconfig
 make CC=clang -j `getconf _NPROCESSORS_ONLN` deb-pkg LOCALVERSION=-rdx
