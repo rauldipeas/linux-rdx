@@ -8,7 +8,8 @@ sudo apt install libelf-dev liblz4-tool #bison build-essential flex libncurses-d
 git clone https://github.com/xanmod/linux
 cd linux
 patch -p1<../99-m-audio_fast_track_c400-c600.patch
-#make defconfig
+cp ../config .config
+make oldconfig
 scripts/config --disable CONFIG_DEBUG_INFO
 #scripts/config --disable CONFIG_DEBUG_INFO_BTF
 #scripts/config --disable CONFIG_X509_CERTIFICATE_PARSER
