@@ -8,6 +8,7 @@ cd ./linux-$(wget -qO- https://cdn.kernel.org/pub/linux/kernel/v6.x/|grep tar.xz
 patch -p1<../99-m-audio_fast_track_c400-c600.patch
 wget -O .config https://raw.githubusercontent.com/Frogging-Family/linux-tkg/master/linux-tkg-config/5.10/config.x86_64
 make olddefconfig
-sed -i 's/CONFIG_DEBUG_INFO_BTF=y/CONFIG_DEBUG_INFO_BTF=n/g' .config
-sed -i 's/CONFIG_X509_CERTIFICATE_PARSER=y/CONFIG_X509_CERTIFICATE_PARSER=n/g' .config
+scripts/config --disable CONFIG_DEBUG_INFO
+scripts/config --disable CONFIG_DEBUG_INFO_BTF
+scripts/config --disable CONFIG_X509_CERTIFICATE_PARSER
 make -j `getconf _NPROCESSORS_ONLN` deb-pkg LOCALVERSION=-rdx
