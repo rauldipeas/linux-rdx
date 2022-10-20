@@ -9,7 +9,7 @@ git clone https://github.com/xanmod/linux
 cd linux
 patch -p1<../99-m-audio_fast_track_c400-c600.patch
 cp ../config .config
-make oldconfig
+make olddefconfig
 scripts/config --disable CONFIG_DEBUG_INFO
 #scripts/config --disable CONFIG_DEBUG_INFO_BTF
 #scripts/config --disable CONFIG_X509_CERTIFICATE_PARSER
