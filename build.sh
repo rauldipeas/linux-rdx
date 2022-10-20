@@ -7,6 +7,7 @@ tar xaf $(wget -qO- https://cdn.kernel.org/pub/linux/kernel/v6.x/|grep tar.xz|cu
 cd ./linux-$(wget -qO- https://cdn.kernel.org/pub/linux/kernel/v6.x/|grep tar.xz|cut -d '"' -f2|tail -n2|head -n1|sed 's/linux-//g'|sed 's/.tar.xz//g')
 patch -p1<../99-m-audio_fast_track_c400-c600.patch
 #wget -O .config https://kernel.ubuntu.com/~kernel-ppa/config/jammy/linux/$(wget -qO- https://kernel.ubuntu.com/~kernel-ppa/config/jammy/linux/|grep href|cut -d '"' -f8|tail -n1)amd64-config.flavour.lowlatency
-cp ../config .config
+wget -O .config https://raw.githubusercontent.com/Frogging-Family/linux-tkg/master/linux-tkg-config/5.10/config.x86_64
+#cp ../config .config
 make olddefconfig
 make -j `getconf _NPROCESSORS_ONLN` deb-pkg LOCALVERSION=-rdx
