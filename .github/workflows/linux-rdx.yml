@@ -1,23 +1,18 @@
 name: Compilação do kernel Linux RDX
 on:
   push:
-    branches: [ "main" ]
-  pull_request:
-    branches: [ "main" ]
+    branches:    
+      - 'main'
+  schedule:
+    - cron:  '0 */24 * * *'
   workflow_dispatch:
 jobs:
   build:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
-      - name: Liberação de espaço em disco
-        run: |
-          df -h
-          sudo apt autoremove --purge -y azure-cli '^dotnet-.*' firefox google-chrome-stable google-cloud-sdk hhvm '^llvm-.*' powershell snapd
-          sudo apt clean
-          sudo swapoff -a
-          sudo rm -rf "$AGENT_TOOLSDIRECTORY" /opt/az /swapfile /usr/share/dotnet /usr/local/share/boost
-          df -h
+      - name: Configuração do ambiente de compilação
+        run: bash env.sh
       - name: Compilação do kernel
         run: bash ./build.sh
       - name: Upload dos artefatos
@@ -25,3 +20,7 @@ jobs:
         with:
           name: linux-rdx
           path: ./*.deb
+      - name: Limpeza de logs antigos
+        run: bash actions-cleanup.sh
+        env:
+          GITHUB_TOKEN: ${{ secrets.GH_TOKEN }}      
