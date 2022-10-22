@@ -8,6 +8,7 @@ rm $(wget -qO- https://cdn.kernel.org/pub/linux/kernel/v6.x/|grep tar.xz|cut -d 
 cd linux*
 patch -p1<../patches/99-m-audio_fast_track_c400-c600.patch
 wget -qO .config https://raw.githubusercontent.com/xanmod/linux/6.0/CONFIGS/xanmod/gcc/config_x86-64-v2
+sed -i 's/x64v2/rdx/g'
 make olddefconfig
 scripts/config --disable CONFIG_DEBUG_INFO
-make -j `getconf _NPROCESSORS_ONLN` deb-pkg LOCALVERSION=-rdx
+make -j `getconf _NPROCESSORS_ONLN` deb-pkg
