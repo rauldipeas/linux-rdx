@@ -1,4 +1,4 @@
-name: Compilação do kernel Linux RDX
+name: Kernel Linux RDX
 on:
   push:
     branches:    
