@@ -6,7 +6,6 @@ sudo apt autoremove --purge -y\
     firefox\
     google-chrome-stable\
     google-cloud-sdk\
-    hhvm\
     '^llvm-.*'\
     powershell\
     snapd
