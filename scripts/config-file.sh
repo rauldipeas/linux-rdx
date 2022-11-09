@@ -13,3 +13,4 @@ scripts/config --enable CONFIG_PREEMPT
 scripts/config --disable CONFIG_RETPOLINE
 scripts/config --disable CONFIG_SLS
 scripts/config --disable CONFIG_SPECULATION_MITIGATIONS
+cat .config

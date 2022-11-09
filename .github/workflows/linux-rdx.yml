@@ -12,15 +12,15 @@ jobs:
     steps:
       - uses: actions/checkout@v3
       - name: Configuração do ambiente de compilação
-        run: bash scripts/env.sh
+        run: bash -x scripts/env.sh
       - name: Compilação do kernel Linux RDX
-        run: bash scripts/build.sh
+        run: bash -x scripts/build.sh
       - name: Upload dos artefatos
         uses: actions/upload-artifact@v3
         with:
           name: linux-rdx
           path: ./*.deb
       - name: Limpeza de logs antigos
-        run: bash scripts/actions-cleanup.sh
+        run: bash -x scripts/actions-cleanup.sh
         env:
           GITHUB_TOKEN: ${{ secrets.GH_TOKEN }}
