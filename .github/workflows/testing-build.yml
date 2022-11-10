@@ -19,6 +19,7 @@ jobs:
           tar xaf $(wget -qO- https://kernel.org/|grep "\-rc"|grep tar.gz|cut -d '"' -f2|cut -d '/' -f6)
           rm $(wget -qO- https://kernel.org/|grep "\-rc"|grep tar.gz|cut -d '"' -f2|cut -d '/' -f6)
           sed -i 's@bash -x scripts/linux-source-download.sh@@g' scripts/build.sh
+          sed -i 's@bash -x scripts/patches.sh@@g' scripts/build.sh
           sed -i 's/rdx/rdx-testing/g' scripts/config-file.sh
           bash -x scripts/build.sh
       - name: Upload dos artefatos
