@@ -1,4 +1,4 @@
-name: Kernel Linux RDX
+name: Linux RDX
 on:
   push:
     branches:

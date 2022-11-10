@@ -1,0 +1,32 @@
+name: Linux RDX (compilação de testes)
+on:
+  push:
+    branches:
+      - 'main'
+  schedule:
+    - cron:  '0 */12 * * *'
+  workflow_dispatch:
+jobs:
+  build:
+    runs-on: ubuntu-22.04
+    steps:
+      - uses: actions/checkout@v3
+      - name: Configuração do ambiente de compilação
+        run: bash -x scripts/env.sh
+      - name: Compilação de testes do kernel Linux RDX
+        run: |
+          wget -qc $(wget -qO- https://kernel.org/|grep "\-rc"|grep tar.gz|cut -d '"' -f2)
+          tar xaf $(wget -qO- https://kernel.org/|grep "\-rc"|grep tar.gz|cut -d '"' -f2|cut -d '/' -f6)
+          rm $(wget -qO- https://kernel.org/|grep "\-rc"|grep tar.gz|cut -d '"' -f2|cut -d '/' -f6)
+          sed -i 's@bash -x scripts/linux-source-download.sh@@g' scripts/build.sh
+          sed -i 's/rdx/rdx-testing/g' scripts/config-file.sh
+          bash -x scripts/build.sh
+      - name: Upload dos artefatos
+        uses: actions/upload-artifact@v3
+        with:
+          name: linux-rdx-testing
+          path: ./*.deb
+      - name: Limpeza de logs antigos
+        run: bash -x scripts/actions-cleanup.sh
+        env:
+          GITHUB_TOKEN: ${{ secrets.GH_TOKEN }}
