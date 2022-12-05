@@ -3,6 +3,13 @@ on:
   push:
     branches:
       - 'main'
+    paths-ignore:
+      - '.editorconfig'
+      - 'readme.md'
+      - '*.jpg'
+      - '*.png'
+      - '*.svg'
+      - '_config.yml'    
   schedule:
     - cron:  '0 */12 * * *'
   workflow_dispatch:

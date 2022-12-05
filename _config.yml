@@ -1,0 +1,6 @@
+remote_theme: rauldipeas/hacker
+plugins:
+- jekyll-remote-theme
+title: Linux RDX
+description:   Minha compilação pessoal do kernel Linux
+favicon: https://raw.githubusercontent.com/PapirusDevelopmentTeam/papirus-icon-theme/master/Papirus/32x32/apps/distributor-logo-madlinux.svg
