@@ -23,9 +23,7 @@ jobs:
         run: bash -x scripts/env.sh
       - name: Compilação de testes do kernel Linux RDX
         run: |
-          wget -qc $(wget -qO- https://kernel.org/|grep "\-rc"|grep tar.gz|cut -d '"' -f2)
-          tar xaf $(wget -qO- https://kernel.org/|grep "\-rc"|grep tar.gz|cut -d '"' -f2|cut -d '/' -f6)
-          rm $(wget -qO- https://kernel.org/|grep "\-rc"|grep tar.gz|cut -d '"' -f2|cut -d '/' -f6)
+          git clone git://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git linux-git
           sed -i 's@bash -x scripts/linux-source-download.sh@@g' scripts/build.sh
           sed -i 's@bash -x scripts/patches.sh@@g' scripts/build.sh
           sed -i 's/rdx/rdx-testing/g' scripts/config-file.sh
