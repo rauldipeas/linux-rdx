@@ -5,9 +5,7 @@ set -e
 cd linux*
 #wget -qO .config https://raw.githubusercontent.com/xanmod/linux/6.0/CONFIGS/xanmod/gcc/config_x86-64-v3
 #sed -i 's/x64v3/rdx/g' .config
-#make olddefconfig
-
-make alldefconfig
+make olddefconfig
 
 scripts/config --disable SYSTEM_TRUSTED_KEYS
 scripts/config --disable SYSTEM_REVOCATION_KEYS
