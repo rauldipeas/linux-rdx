@@ -7,7 +7,7 @@ cd linux*
 #sed -i 's/x64v3/rdx/g' .config
 #make olddefconfig
 
-make defconfig
+make alldefconfig
 
 scripts/config --disable SYSTEM_TRUSTED_KEYS
 scripts/config --disable SYSTEM_REVOCATION_KEYS
