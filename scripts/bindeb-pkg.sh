@@ -1,6 +1,6 @@
 #!/bin/bash
 set -e
 
-# deb-pkg
+# bindeb-pkg
 cd linux*
 make -j `getconf _NPROCESSORS_ONLN` bindeb-pkg LOCALVERSION=-rdx

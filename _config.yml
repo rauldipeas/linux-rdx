@@ -2,5 +2,5 @@ remote_theme: rauldipeas/hacker
 plugins:
 - jekyll-remote-theme
 title: Linux RDX
-description:   My personal Linux kernel build
+description: My personal Linux kernel build
 favicon: https://raw.githubusercontent.com/PapirusDevelopmentTeam/papirus-icon-theme/master/Papirus/32x32/apps/distributor-logo-madlinux.svg
