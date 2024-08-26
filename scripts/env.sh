@@ -8,6 +8,7 @@ sudo apt autoremove --purge -y\
     firefox\
     google-chrome-stable\
     '^llvm-.*'\
+    powershell\
     snapd
     #google-cloud-sdk\
 sudo apt clean
