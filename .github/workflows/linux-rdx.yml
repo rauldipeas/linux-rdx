@@ -16,15 +16,15 @@ on:
   workflow_dispatch:
 jobs:
   build:
-    runs-on: ubuntu-22.04
+    runs-on: self-hosted
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
       - name: Configuração do ambiente de compilação
         run: bash -x scripts/env.sh
       - name: Compilação do kernel Linux RDX
         run: bash -x scripts/build.sh
       - name: Upload dos artefatos
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         with:
           name: linux-rdx
           path: ./*.deb
