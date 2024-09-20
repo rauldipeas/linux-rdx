@@ -15,5 +15,5 @@ sudo apt clean
 sudo swapoff -a
 sudo rm -r\
     "$AGENT_TOOLSDIRECTORY"\
-    /opt/az\
-    /usr/share/dotnet
+    /opt/az
+#    /usr/share/dotnet
