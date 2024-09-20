@@ -24,8 +24,8 @@ jobs:
           swap-size-mb: 1024
           remove-dotnet: 'true'
       - uses: actions/checkout@v4
-      - name: Configuração do ambiente de compilação
-        run: bash -x scripts/env.sh
+#      - name: Configuração do ambiente de compilação
+#        run: bash -x scripts/env.sh
       - name: Compilação do kernel Linux RDX
         run: bash -x scripts/build.sh
       - name: Upload dos artefatos
