@@ -16,4 +16,5 @@ sudo swapoff -a
 sudo rm -r\
     "$AGENT_TOOLSDIRECTORY"\
     /opt/az\
+    /tmp/"*"\
     /usr/share/dotnet
