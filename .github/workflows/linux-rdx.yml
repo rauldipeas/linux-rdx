@@ -33,7 +33,10 @@ jobs:
         with:
           name: linux-rdx
           path: ./*.deb
-      - name: Limpeza de logs antigos
-        run: bash -x scripts/actions-cleanup.sh
-        env:
-          GITHUB_TOKEN: ${{ secrets.GH_TOKEN }}
+      - uses: otto-de/purge-deprecated-workflow-runs@v2
+        with:
+          remove-cancelled: true
+          remove-failed: true
+          remove-obsolete: false
+          token: ${{ secrets.PAT }}
+          #remove-older-than: 7d
