@@ -3,7 +3,10 @@ set -e
 
 # Config file
 cd linux*
-wget -qO .config https://raw.githubusercontent.com/xanmod/linux/"$(wget -qO- https://kernel.org/|grep tar.xz|cut -d '"' -f2|head -n1|cut -d '/' -f8|cut -d '-' -f2|sed 's/.tar.xz//g'|cut -d '.' -f1-2)"/CONFIGS/xanmod/gcc/config_x86-64-v3
+
+
+
+wget -qO .config https://gitlab.com/xanmod/linux/-/raw/"$(wget -qO- https://kernel.org/|grep tar.xz|cut -d '"' -f2|head -n1|cut -d '/' -f8|cut -d '-' -f2|sed 's/.tar.xz//g'|cut -d '.' -f1-2)"/CONFIGS/xanmod/gcc/config_x86-64-v3
 sed -i 's/x64v3/rdx/g' .config
 make olddefconfig
 
