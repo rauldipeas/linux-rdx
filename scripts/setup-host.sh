@@ -2,4 +2,4 @@
 set -e
 
 # Setup host
-sudo apt install debhelper libelf-dev liblz4-tool
+sudo apt install bc debhelper libelf-dev liblz4-tool
