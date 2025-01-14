@@ -14,6 +14,6 @@ sudo apt autoremove --purge -y\
 sudo apt clean
 sudo swapoff -a
 sudo rm -r\
-    "$AGENT_TOOLSDIRECTORY"\
-    /opt/az
+    "$AGENT_TOOLSDIRECTORY"
+#    /opt/az
 #    /usr/share/dotnet
