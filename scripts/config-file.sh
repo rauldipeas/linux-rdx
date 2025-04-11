@@ -3,13 +3,13 @@ set -e
 
 # Config file
 cd linux*
-#wget -qO .config https://gitlab.com/xanmod/linux/-/raw/"$(wget -qO- https://kernel.org/|grep tar.xz|cut -d '"' -f2|head -n1|cut -d '/' -f8|cut -d '-' -f2|sed 's/.tar.xz//g'|cut -d '.' -f1-2)"/CONFIGS/x86_64/config
-#sed -i 's/x64v3/rdx/g' .config
+wget -qO .config https://gitlab.com/xanmod/linux/-/raw/"$(wget -qO- https://kernel.org/|grep tar.xz|cut -d '"' -f2|head -n1|cut -d '/' -f8|cut -d '-' -f2|sed 's/.tar.xz//g'|cut -d '.' -f1-2)"/CONFIGS/x86_64/config
+sed -i 's/x64v3/rdx/g' .config
 #make olddefconfig
-make defconfig
+#make defconfig
 
 # rdx suffix
-sed -i 's/^EXTRAVERSION *=.*/EXTRAVERSION = -rdx/' Makefile
+#sed -i 's/^EXTRAVERSION *=.*/EXTRAVERSION = -rdx/' Makefile
 
 # Misc settings
 ## LOGLEVEL e PREEMPT
