@@ -3,25 +3,45 @@ set -e
 
 # Config file
 cd linux*
-wget -qO .config https://gitlab.com/xanmod/linux/-/raw/"$(wget -qO- https://kernel.org/|grep tar.xz|cut -d '"' -f2|head -n1|cut -d '/' -f8|cut -d '-' -f2|sed 's/.tar.xz//g'|cut -d '.' -f1-2)"/CONFIGS/x86_64/config
-sed -i 's/x64v3/rdx/g' .config
-make olddefconfig
+#wget -qO .config https://gitlab.com/xanmod/linux/-/raw/"$(wget -qO- https://kernel.org/|grep tar.xz|cut -d '"' -f2|head -n1|cut -d '/' -f8|cut -d '-' -f2|sed 's/.tar.xz//g'|cut -d '.' -f1-2)"/CONFIGS/x86_64/config
+#sed -i 's/x64v3/rdx/g' .config
+#make olddefconfig
+make ARCH=x86 x86_64_defconfig
+
+# rdx suffix
+sed -i 's/^EXTRAVERSION *=.*/EXTRAVERSION = -rdx/' Makefile
 
 # Misc settings
-#scripts/config --enable DEBUG_INFO_NONE
-#scripts/config --disable SYSTEM_REVOCATION_KEYS
-#scripts/config --disable SYSTEM_TRUSTED_KEYS
+## LOGLEVEL e PREEMPT
+sed -i 's/^CONFIG_LOGLEVEL_QUIET=.*/CONFIG_LOGLEVEL_QUIET=0/' .config
+sed -i 's/^# CONFIG_LOGLEVEL_QUIET is not set/CONFIG_LOGLEVEL_QUIET=0/' .config
+sed -i 's/^CONFIG_PREEMPT=.*/CONFIG_PREEMPT=y/' .config
+sed -i 's/^# CONFIG_PREEMPT is not set/CONFIG_PREEMPT=y/' .config
+## Desativa mitigations
+sed -i '/^CONFIG_RETPOLINE=/d' .config
+sed -i '/^# CONFIG_RETPOLINE is not set/d' .config
+echo "# CONFIG_RETPOLINE is not set" >> .config
+sed -i '/^CONFIG_SLS=/d' .config
+sed -i '/^# CONFIG_SLS is not set/d' .config
+echo "# CONFIG_SLS is not set" >> .config
+sed -i '/^CONFIG_SPECULATION_MITIGATIONS=/d' .config
+sed -i '/^# CONFIG_SPECULATION_MITIGATIONS is not set/d' .config
+echo "# CONFIG_SPECULATION_MITIGATIONS is not set" >> .config
+## Ativa DEBUG_INFO_NONE
+sed -i '/^CONFIG_DEBUG_INFO_NONE=/d' .config
+sed -i '/^# CONFIG_DEBUG_INFO_NONE is not set/d' .config
+echo "CONFIG_DEBUG_INFO_NONE=y" >> .config
+## Desativa chaves de confiança do sistema
+for opt in CONFIG_SYSTEM_REVOCATION_KEYS CONFIG_SYSTEM_TRUSTED_KEYS; do
+  sed -i "/^$opt=/d" .config
+  sed -i "/^# $opt is not set/d" .config
+  echo "# $opt is not set" >> .config
+done
 
 # rtcqs settings
-#scripts/config --set-val CONFIG_LOGLEVEL_QUIET '0'
-#sed -i 's/CONFIG_LOGLEVEL_QUIET=3/CONFIG_CONSOLE_LOGLEVEL_QUIET=0/g' .config
-#scripts/config --enable CONFIG_PREEMPT
-#sed -i 's/# CONFIG_PREEMPT is not set/CONFIG_PREEMPT=y/g' .config
-#scripts/config --disable CONFIG_RETPOLINE
-#sed -i 's/CONFIG_RETPOLINE=y/CONFIG_RETPOLINE=n/g' .config
-#scripts/config --disable CONFIG_SLS
-#sed -i 's/CONFIG_SLS=y/CONFIG_SLS=n/g' .config
-#scripts/config --disable CONFIG_SPECULATION_MITIGATIONS
-#sed -i 's/CONFIG_SPECULATION_MITIGATIONS=y/CONFIG_SPECULATION_MITIGATIONS=n/g' .config
+sed -i 's/^CONFIG_LOGLEVEL_QUIET=.*/CONFIG_LOGLEVEL_QUIET=0/' .config
+sed -i 's/^# CONFIG_LOGLEVEL_QUIET is not set/CONFIG_LOGLEVEL_QUIET=0/' .config
+sed -i 's/^CONFIG_PREEMPT=.*/CONFIG_PREEMPT=y/' .config
+sed -i 's/^# CONFIG_PREEMPT is not set/CONFIG_PREEMPT=y/' .config
 
-cat .config
+make olddefconfig
