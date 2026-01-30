@@ -9,7 +9,7 @@ cd linux*
 #make defconfig
 
 KVER=$(wget -qO- https://kernel.org/|grep tar.xz|cut -d '"' -f2|head -n1|cut -d '/' -f8|cut -d '-' -f2|sed 's/.tar.xz//g'|cut -d '.' -f1-2)
-wget -qO .config "https://salsa.debian.org/kernel-team/linux/-/raw/debian/${KVER}/debian/config/amd64/config"
+wget -qO .config https://salsa.debian.org/kernel-team/linux/-/blob/debian/"${KVER}"/trixie-backports/debian/config/amd64/config
 make olddefconfig >/dev/null
 
 # rdx suffix
