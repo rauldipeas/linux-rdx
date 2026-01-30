@@ -11,6 +11,7 @@ cd linux*
 # Pega a última versão da página de listagem
 DEBIAN_VERSION=$(curl -sSL "https://packages.debian.org/source/sid/linux" | grep -oP 'linux_\K[\d\.\-]+' | head -1)
 wget -qO .config https://sources.debian.org/data/main/l/linux/"${DEBIAN_VERSION}"/debian/config/amd64/config
+cat .config
 
 # rdx suffix
 #sed -i 's/^EXTRAVERSION *=.*/EXTRAVERSION = -rdx/' Makefile
