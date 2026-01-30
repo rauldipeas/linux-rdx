@@ -11,12 +11,15 @@ cd linux*
 # Pega a última versão da página de listagem
 #DEBIAN_VERSION=$(curl -sSL "https://packages.debian.org/source/sid/linux" | grep -oP 'linux_\K[\d\.\-]+' | head -1)
 #wget -qO .config https://sources.debian.org/data/main/l/linux/"${DEBIAN_VERSION}"/debian/config/amd64/config
-DEB_URL=$(curl -s "https://packages.debian.org/sid/amd64/linux-image-amd64/download" | grep -oP 'http://ftp[^"]+\.deb' | head -1)
+# Procura o pacote real com unsigned
+DEB_URL=$(curl -s "https://packages.debian.org/sid/amd64/linux-image-amd64" | grep -oP 'href="/sid/amd64/linux-image-unsigned[^"]+' | head -1 | sed 's|href="||')
+DEB_URL="https://packages.debian.org${DEB_URL}/download"
+DEB_URL=$(curl -s "$DEB_URL" | grep -oP 'http://ftp[^"]+unsigned[^"]+\.deb' | head -1)
 wget "$DEB_URL" -O kernel.deb
 dpkg-deb -x kernel.deb extracted/
 cp extracted/boot/config-* .config
 rm -rf extracted/ kernel.deb
-make olddefconfig KCONFIG_CONFIG=.config >/dev/null
+make olddefconfig >/dev/null
 
 # rdx suffix
 #sed -i 's/^EXTRAVERSION *=.*/EXTRAVERSION = -rdx/' Makefile
