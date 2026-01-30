@@ -8,6 +8,7 @@ sudo apt install -y \
 	build-essential \
 	ca-certificates \
 	debhelper \
+	debian-archive-keryring \
 	dpkg-dev \
 	dwarves \
 	flex \

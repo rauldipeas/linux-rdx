@@ -10,8 +10,7 @@ cd linux*
 
 echo 'deb http://deb.debian.org/debian sid main' | sudo tee /etc/apt/sources.list.d/debian.list
 sudo apt update
-sudo apt install -y --allow-unauthenticated linux-image-amd64
-
+sudo apt install -y linux-image-amd64
 cp /boot/config-"$(find /boot/config-* | tail -n1 | sed 's/.*config-//')" .config
 sudo rm /etc/apt/sources.list.d/debian.list
 sudo apt update
