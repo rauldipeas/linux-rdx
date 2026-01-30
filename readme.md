@@ -1,6 +1,6 @@
 # ![](https://raw.githubusercontent.com/PapirusDevelopmentTeam/papirus-icon-theme/master/Papirus/32x32/apps/distributor-logo-madlinux.svg) [Linux RDX](https://github.com/rauldipeas/linux-rdx)
 
-This is my personal build of the [**Linux kernel**](https://kernel.org), using the [**XanMod Linux**](https://raw.githubusercontent.com/xanmod/linux/6.0/CONFIGS/xanmod/gcc/config_x86-64-v3) configuration file and some fixes specific to my hardware that have not yet been incorporated into the main source code.
+This is my personal build of the [**Linux kernel**](https://kernel.org), using the [**Debian**](https://salsa.debian.org/kernel-team/linux/-/blob/debian/latest/debian/config/amd64/config) configuration file and some fixes specific to my hardware that have not yet been incorporated into the main source code.
 
 ## Download:
 
