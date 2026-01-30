@@ -13,7 +13,7 @@ DEBIAN_VERSION=$(curl -sSL "https://packages.debian.org/source/sid/linux" | grep
 wget -qO .config https://sources.debian.org/data/main/l/linux/"${DEBIAN_VERSION}"/debian/config/amd64/config
 
 # rdx suffix
-sed -i 's/^EXTRAVERSION *=.*/EXTRAVERSION = -rdx/' Makefile
+#sed -i 's/^EXTRAVERSION *=.*/EXTRAVERSION = -rdx/' Makefile
 
 # Misc settings
 ## LOGLEVEL e PREEMPT
