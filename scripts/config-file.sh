@@ -12,8 +12,13 @@ wget -q "$(curl -s http://ftp.debian.org/debian/pool/main/d/debian-archive-keyri
 sudo apt install -y ./debian-archive-keyring_*.deb
 echo 'deb http://deb.debian.org/debian sid main' | sudo tee /etc/apt/sources.list.d/debian.list
 sudo apt update
-sudo apt install -y linux-image-amd64
-cp /boot/config-"$(find /boot/config-* | tail -n1 | sed 's/.*config-//')" .config
+
+apt download linux-image-amd64
+KERNEL_PKG="$(dpkg-deb -I linux-image-amd64*.deb | grep "Depends:" | grep -oP 'linux-image-[^ ,]+')"
+apt download "$KERNEL_PKG"
+dpkg-deb -x "${KERNEL_PKG}"*.deb extracted/
+cp extracted/boot/config-* .config
+rm -rf extracted/ ./*.deb
 sudo rm /etc/apt/sources.list.d/debian.list
 sudo apt update
 
