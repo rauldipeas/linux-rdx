@@ -8,7 +8,15 @@ cd linux*
 #make olddefconfig
 #make defconfig
 
-make x86_64_defconfig
+echo 'deb http://deb.debian.org/debian sid main' | sudo tee /etc/apt/sources.list.d/debian.list
+sudo apt update
+sudo apt install -y --allow-unauthenticated linux-image-amd64
+
+cp /boot/config-"$(find /boot/config-* | tail -n1 | sed 's/.*config-//')" .config
+sudo rm /etc/apt/sources.list.d/debian.list
+sudo apt update
+
+#make x86_64_defconfig
 #make olddefconfig
 
 # rdx suffix
