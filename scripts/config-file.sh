@@ -8,6 +8,8 @@ cd linux*
 #make olddefconfig
 #make defconfig
 
+wget -q "$(curl -s http://ftp.debian.org/debian/pool/main/d/debian-archive-keyring/ | grep -oP 'debian-archive-keyring_[0-9.]+_all\.deb' | sort -V | tail -1 | sed 's|^|http://ftp.debian.org/debian/pool/main/d/debian-archive-keyring/|')"
+sudo apt install -y ./debian-archive-keyring_*.deb
 echo 'deb http://deb.debian.org/debian sid main' | sudo tee /etc/apt/sources.list.d/debian.list
 sudo apt update
 sudo apt install -y linux-image-amd64
