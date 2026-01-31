@@ -14,12 +14,13 @@ sed -i "s/linux-headers-.*/linux-headers-rdx/g" repack-headers/DEBIAN/control
 dpkg-deb -b --root-owner-group repack-headers .
 mkdir -p meta-rdx/DEBIAN
 META_VERSION="$(find ./*rdx*.deb | head -n1 | cut -d "_" -f2 | cut -d "-" -f1)"
+BUILD='1'
 cat <<EOF | tee meta-rdx/DEBIAN/control >/dev/null
 Package: linux-rdx
-Version: $META_VERSION-rdx
+Version: $META_VERSION-rdx-$BUILD
 Architecture: amd64
 Maintainer: Raul Dipeas <rauldipeas@disroot.org>
-Depends: linux-image-rdx (= $META_VERSION), linux-headers-rdx (= $META_VERSION)
+Depends: linux-image-rdx (= $META_VERSION-$BUILD), linux-headers-rdx (= $META_VERSION-$BUILD)
 Section: kernel
 Priority: optional
 Description: Este pacote contém uma versão com pequenas modificações do kernel Linux, com alguns patches de correções para o meu hardware pessoal.
