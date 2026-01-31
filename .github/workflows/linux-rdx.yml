@@ -28,6 +28,8 @@ jobs:
         run: bash -x scripts/env.sh
       - name: Compilação do kernel Linux RDX
         run: bash -x scripts/build.sh
+        env:
+          GEMFURY_PUSH_TOKEN: ${{ secrets.GEMFURY_PUSH_TOKEN }}
       - name: Upload dos artefatos
         uses: actions/upload-artifact@v4
         with:
@@ -40,3 +42,5 @@ jobs:
           remove-obsolete: false
           token: ${{ secrets.PAT }}
           remove-older-than: 7d
+      - name: Compilação do repositório APT
+        run: bash scripts/build.sh
