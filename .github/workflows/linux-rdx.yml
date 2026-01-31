@@ -42,5 +42,3 @@ jobs:
           remove-obsolete: false
           token: ${{ secrets.PAT }}
           remove-older-than: 7d
-      - name: Compilação do repositório APT
-        run: bash scripts/build.sh
