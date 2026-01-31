@@ -4,7 +4,7 @@ set -e
 # Setup host
 sudo apt install \
 	bc \
-	build-essetial \
+	build-essential \
 	debhelper \
 	libdw-dev \
 	libelf-dev \
