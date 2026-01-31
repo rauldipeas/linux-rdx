@@ -1,9 +1,7 @@
 #!/bin/bash
 set -e
 # Linux RDX
-wget -q --show-progress https://nightly.link/rauldipeas/linux-rdx/workflows/linux-rdx/main/linux-rdx.zip
-unzip -oqq linux-rdx.zip
-rm linux-libc-dev_*_amd64.deb linux-rdx.zip
+rm linux-libc-dev_*_amd64.deb
 dpkg-deb -x linux-image-*-rdx_*_amd64.deb repack-image
 dpkg-deb -e linux-image-*-rdx_*_amd64.deb repack-image/DEBIAN
 rm linux-image-*-rdx_*_amd64.deb
@@ -30,5 +28,5 @@ EOF
 dpkg-deb -b --root-owner-group meta-rdx .
 rm -r meta-rdx repack-*
 for PACKAGE in *.deb; do
-	curl -sF package=@"$PACKAGE" https://"$GEMFURY_PUSH_TOKEN"@push.fury.io/linux-rdx/
+	curl -sF package=@"$PACKAGE" https://"$GEMFURY_PUSH_TOKEN"@push.fury.io/rauldipeas/
 done
