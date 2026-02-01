@@ -17,7 +17,7 @@ META_VERSION="$(find ./*rdx*.deb | head -n1 | cut -d "_" -f2 | cut -d "-" -f1)"
 BUILD='1'
 cat <<EOF | tee meta-rdx/DEBIAN/control >/dev/null
 Package: linux-rdx
-Version: $META_VERSION-$BUILD-rdx
+Version: $META_VERSION-$BUILD
 Architecture: amd64
 Maintainer: Raul Dipeas <rauldipeas@disroot.org>
 Depends: linux-image-rdx (= $META_VERSION-$BUILD), linux-headers-rdx (= $META_VERSION-$BUILD)
