@@ -15,7 +15,27 @@ on:
     - cron:  '0 5,17 * * *'
   workflow_dispatch:
 jobs:
+  check-version:
+    runs-on: ubuntu-latest
+    outputs:
+      should_build: ${{ steps.check.outputs.should_build }}
+    steps:
+      - uses: actions/checkout@v4
+      - name: Verificar nova versão
+        id: check
+        run: |
+          LATEST=$(curl -s https://www.kernel.org/finger_banner | grep 'latest stable version' | awk '{print $NF}')
+          CURRENT=$(cat .last_version 2>/dev/null || echo "0.0.0")
+          if [ "$LATEST" != "$CURRENT" ]; then
+            echo "should_build=true" >> $GITHUB_OUTPUT
+            echo "Nova versão disponível: $LATEST (atual: $CURRENT)"
+          else
+            echo "should_build=false" >> $GITHUB_OUTPUT
+            echo "Nenhuma nova versão disponível"
+          fi
   build:
+    needs: check-version
+    if: needs.check-version.outputs.should_build == 'true' || github.event_name == 'workflow_dispatch'
     runs-on: ubuntu-latest
     steps:
       - uses: easimon/maximize-build-space@master
@@ -30,6 +50,15 @@ jobs:
         run: bash -x scripts/build.sh
         env:
           GEMFURY_PUSH_TOKEN: ${{ secrets.GEMFURY_PUSH_TOKEN }}
+      - name: Salvar versão compilada
+        run: |
+          LATEST=$(curl -s https://www.kernel.org/finger_banner | grep 'latest stable version' | awk '{print $NF}')
+          echo "$LATEST" > .last_version
+          git config user.name github-actions
+          git config user.email github-actions@github.com
+          git add .last_version
+          git commit -m "Update kernel version to $LATEST" || true
+          git push || true
       - name: Upload dos artefatos
         uses: actions/upload-artifact@v4
         with:
