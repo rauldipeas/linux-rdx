@@ -38,7 +38,7 @@ jobs:
           fi
   build:
     needs: check-version
-    if: needs.check-version.outputs.should_build == 'true' || github.event_name == 'workflow_dispatch'
+    if: needs.check-version.outputs.should_build == 'true'
     runs-on: ubuntu-latest
     steps:
       - uses: easimon/maximize-build-space@master
