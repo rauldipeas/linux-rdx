@@ -17,5 +17,5 @@ EOF
 dpkg-deb -b --root-owner-group meta-rdx .
 rm -r meta-rdx #repack-*
 for PACKAGE in *.deb; do
-	curl -sF package=@"$PACKAGE" https://"$GEMFURY_PUSH_TOKEN"@push.fury.io/rauldipeas/
+	curl -sF public=true package=@"$PACKAGE" https://"$GEMFURY_PUSH_TOKEN"@push.fury.io/rauldipeas/
 done
