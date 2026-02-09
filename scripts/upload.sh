@@ -26,7 +26,7 @@ Priority: optional
 Description: Este pacote contém uma versão com pequenas modificações do kernel Linux, além de alguns patches de correções para o meu hardware pessoal.
 EOF
 dpkg-deb -b --root-owner-group meta-rdx .
-rm -r meta-rdx repack-*
+rm -r meta-rdx #repack-*
 for PACKAGE in *.deb; do
 	curl -sF package=@"$PACKAGE" https://"$GEMFURY_PUSH_TOKEN"@push.fury.io/rauldipeas/
 done
