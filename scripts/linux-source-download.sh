@@ -9,6 +9,7 @@ set -e
 #git checkout v"$(wget -qO- https://kernel.org/|grep tar.xz|cut -d '"' -f2|head -n1|cut -d '/' -f8|cut -d '-' -f2|sed 's/.tar.xz//g'|cut -d '.' -f1-2)"
 
 ## Tarball
-wget -qc --show-progress "$(wget -qO- https://kernel.org/|grep tar.xz|cut -d '"' -f2|head -n1)"
+#wget -q --show-progress "$(wget -qO- https://kernel.org/|grep tar.xz|cut -d '"' -f2|head -n1)"
+wget -q --show-progress https://cdn.kernel.org/pub/linux/kernel/v6.x/linux-6.18.9.tar.xz
 tar xaf "$(wget -qO- https://kernel.org/|grep tar.xz|cut -d '"' -f2|head -n1|cut -d '/' -f8)"
 rm "$(wget -qO- https://kernel.org/|grep tar.xz|cut -d '"' -f2|head -n1|cut -d '/' -f8)"
