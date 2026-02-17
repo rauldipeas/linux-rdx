@@ -36,8 +36,25 @@ jobs:
             echo "should_build=false" >> $GITHUB_OUTPUT
             echo "Nenhuma nova versão disponível"
           fi
-  build:
+  
+  nvidia-check:
     needs: check-version
+    if: needs.check-version.outputs.should_build == 'true'
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Configuração do ambiente de compilação
+        run: bash -x scripts/env.sh
+      - name: Testar compatibilidade NVIDIA
+        run: bash -x scripts/nvidia-check.sh
+      - name: Comentar se incompatível
+        if: failure()
+        run: |
+          echo "⚠️ Kernel incompatível com driver NVIDIA mais recente"
+          echo "A compilação continuará, mas pode haver problemas com GPUs NVIDIA"
+  
+  build:
+    needs: [check-version, nvidia-check]
     if: needs.check-version.outputs.should_build == 'true'
     runs-on: ubuntu-latest
     steps:
