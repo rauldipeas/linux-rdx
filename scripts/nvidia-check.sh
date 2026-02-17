@@ -7,7 +7,7 @@ deb_check() {
 	sudo dpkg --add-architecture i386
 	wget -q --show-progress "https://developer.download.nvidia.com/compute/cuda/repos/debian13/x86_64/$(curl -sSL https://developer.download.nvidia.com/compute/cuda/repos/debian13/x86_64/ | grep cuda-keyring | cut -d \' -f4)"
 	sudo apt install "$PWD"/cuda-keyring*.deb
-	rm "$PWD"/cuda-keyring*.deb
+	sudo apt update
 	sudo apt install -t Debian_13 \
 		libnvidia-encode1 \
 		libvulkan1 \
