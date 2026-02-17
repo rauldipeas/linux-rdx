@@ -1,12 +1,13 @@
 #!/bin/bash
 set -e
-sudo apt install -y ../linux-rdx*.deb ../linux-image*.deb ../linux-headers*.deb
+find "$PWD" -name '*rdx*.deb'
+sudo apt install -y "$PWD"/linux-rdx*.deb "$PWD"/linux-image*.deb "$PWD"/linux-headers*.deb
 deb_check() {
 	echo "🧪 Testando NVIDIA ${LATEST_VERSION} com kernel ${KERNEL_VERSION}..."
 	sudo dpkg --add-architecture i386
 	wget -q --show-progress "https://developer.download.nvidia.com/compute/cuda/repos/debian13/x86_64/$(curl -sSL https://developer.download.nvidia.com/compute/cuda/repos/debian13/x86_64/ | grep cuda-keyring | cut -d \' -f4)"
-	sudo apt install ./cuda-keyring*.deb
-	rm ./cuda-keyring*.deb
+	sudo apt install "$PWD"/cuda-keyring*.deb
+	rm "$PWD"/cuda-keyring*.deb
 	sudo apt install -t Debian_13 \
 		libnvidia-encode1 \
 		libvulkan1 \

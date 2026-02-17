@@ -4,7 +4,7 @@ set -e
 # Config file
 cd linux*
 wget -q "$(curl -s http://ftp.debian.org/debian/pool/main/d/debian-archive-keyring/ | grep -oP 'debian-archive-keyring_[0-9.]+_all\.deb' | sort -V | tail -1 | sed 's|^|http://ftp.debian.org/debian/pool/main/d/debian-archive-keyring/|')"
-sudo apt install -y ./debian-archive-keyring_*.deb
+sudo apt install -y "$PWD"/debian-archive-keyring_*.deb
 echo 'deb http://deb.debian.org/debian sid main' | sudo tee /etc/apt/sources.list.d/debian.list
 sudo apt update
 apt download linux-image-amd64
@@ -12,7 +12,7 @@ KERNEL_PKG="$(dpkg-deb -I linux-image-amd64*.deb | grep "Depends:" | grep -oP 'l
 apt download "$KERNEL_PKG"
 dpkg-deb -x "${KERNEL_PKG}"*.deb extracted/
 cp extracted/boot/config-* .config
-rm -rf extracted/ ./*.deb
+rm -rf extracted/ "$PWD"/*.deb
 sudo rm /etc/apt/sources.list.d/debian.list
 sudo apt update
 

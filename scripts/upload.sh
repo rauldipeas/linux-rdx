@@ -3,7 +3,7 @@ set -e
 # Linux RDX
 rm linux-libc-dev_*_amd64.deb
 mkdir -p meta-rdx/DEBIAN
-META_VERSION="$(find ./*rdx*.deb | head -n1 | cut -d "_" -f2 | cut -d "-" -f1)"
+META_VERSION="$(find "$PWD"/*rdx*.deb | head -n1 | cut -d "_" -f2 | cut -d "-" -f1)"
 cat <<EOF | tee meta-rdx/DEBIAN/control >/dev/null
 Package: linux-rdx
 Version: $META_VERSION
