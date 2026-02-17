@@ -41,21 +41,28 @@ jobs:
     needs: check-version
     if: needs.check-version.outputs.should_build == 'true'
     runs-on: ubuntu-latest
+    outputs:
+      is_compatible: ${{ steps.test.outputs.is_compatible }}
     steps:
       - uses: actions/checkout@v4
       - name: Configuração do ambiente de compilação
         run: bash -x scripts/env.sh
       - name: Testar compatibilidade NVIDIA
-        run: bash -x scripts/nvidia-check.sh
-      - name: Comentar se incompatível
-        if: failure()
+        id: test
         run: |
-          echo "⚠️ Kernel incompatível com driver NVIDIA mais recente"
-          echo "A compilação continuará, mas pode haver problemas com GPUs NVIDIA"
+          if bash -x scripts/nvidia-check.sh; then
+            echo "is_compatible=true" >> $GITHUB_OUTPUT
+            echo "✅ Kernel compatível com driver NVIDIA"
+          else
+            echo "is_compatible=false" >> $GITHUB_OUTPUT
+            echo "⚠️ Kernel incompatível com driver NVIDIA - build cancelada"
+          fi
   
   build:
     needs: [check-version, nvidia-check]
-    if: needs.check-version.outputs.should_build == 'true'
+    if: |
+      needs.check-version.outputs.should_build == 'true' && 
+      needs.nvidia-check.outputs.is_compatible == 'true'
     runs-on: ubuntu-latest
     steps:
       - uses: easimon/maximize-build-space@master
