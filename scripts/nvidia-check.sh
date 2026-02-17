@@ -1,7 +1,7 @@
 #!/bin/bash
 set -e
 find "$PWD" -name '*rdx*.deb'
-sudo apt install -y "$PWD"/linux-rdx*.deb "$PWD"/linux-image*.deb "$PWD"/linux-headers*.deb
+sudo apt install -y "$PWD"/linux-image*.deb "$PWD"/linux-headers*.deb
 deb_check() {
 	echo "🧪 Testando NVIDIA ${LATEST_VERSION} com kernel ${KERNEL_VERSION}..."
 	sudo dpkg --add-architecture i386
