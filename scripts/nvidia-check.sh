@@ -8,7 +8,7 @@ deb_check() {
 	wget -q --show-progress "https://developer.download.nvidia.com/compute/cuda/repos/debian13/x86_64/$(curl -sSL https://developer.download.nvidia.com/compute/cuda/repos/debian13/x86_64/ | grep cuda-keyring | cut -d \' -f4)"
 	sudo apt install "$PWD"/cuda-keyring*.deb
 	sudo apt update
-	sudo apt install \
+	sudo apt install -y \
 		libnvidia-encode1 \
 		libvulkan1 \
 		libvulkan1:i386 \
@@ -17,7 +17,6 @@ deb_check() {
 		nvidia-settings \
 		nvidia-vaapi-driver \
 		nvtop
-		update-iniramfs -u -k all
 }
 if deb_check ; then
     echo "✅ Compatível"
