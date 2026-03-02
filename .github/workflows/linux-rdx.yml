@@ -59,11 +59,11 @@ jobs:
         with:
           commit_message: ^.last-version
           file_pattern: .last_version
-      - name: Upload dos artefatos
-        uses: actions/upload-artifact@v4
-        with:
-          name: linux-rdx
-          path: ./*.deb
+#      - name: Upload dos artefatos
+#        uses: actions/upload-artifact@v4
+#        with:
+#          name: linux-rdx
+#          path: ./*.deb
       - uses: otto-de/purge-deprecated-workflow-runs@v2
         with:
           remove-cancelled: true
