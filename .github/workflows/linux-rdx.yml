@@ -4,14 +4,12 @@ on:
     branches:
       - 'main'
     paths-ignore:
-      - '.editorconfig'
       - '.last_version'
       - 'leiame.md'
       - 'readme.md'
       - '*.jpg'
       - '*.png'
       - '*.svg'
-      - '_config.yml'
   schedule:
     - cron:  '0 5,17 * * *'
   workflow_dispatch:
