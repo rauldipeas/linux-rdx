@@ -27,7 +27,7 @@ jobs:
       - name: Verificar nova versão
         id: check
         run: |
-          LATEST=$(curl -s https://www.kernel.org/finger_banner | grep 'latest stable version' | awk '{print $NF}')
+          LATEST=$(curl -s https://www.kernel.org/ | grep -A1 'longterm:' | grep -oP '\d+\.\d+\.\d+' | head -1)
           CURRENT=$(cat .last_version 2>/dev/null || echo "0.0.0")
           if [ "$LATEST" != "$CURRENT" ]; then
             echo "should_build=true" >> $GITHUB_OUTPUT
@@ -55,7 +55,7 @@ jobs:
           GEMFURY_PUSH_TOKEN: ${{ secrets.GEMFURY_PUSH_TOKEN }}
       - name: Salvar versão compilada
         run: |
-          echo "$(curl -s https://www.kernel.org/finger_banner | grep 'latest stable version' | awk '{print $NF}')" > .last_version
+          echo "$(curl -s https://www.kernel.org/ | grep -A1 'longterm:' | grep -oP '\d+\.\d+\.\d+' | head -1)" > .last_version
       - uses: stefanzweifel/git-auto-commit-action@v5
         with:
           commit_message: ^.last-version
