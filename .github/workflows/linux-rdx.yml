@@ -20,10 +20,10 @@ jobs:
     outputs:
       should_build: ${{ steps.check.outputs.should_build }}
     steps:
-      - uses: sudosubin/git-clone-action@v1
+      - uses: chihqiang/checkout-action@main
         with:
-          repository: 'rauldipeas/linux-rdx'
-          platform: 'codeberg.org'
+          repo: https://codeberg.org/rauldipeas/linux-rdx
+          branch: main
       - name: Verificar nova versão
         id: check
         run: |
