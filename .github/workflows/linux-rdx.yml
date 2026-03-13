@@ -20,10 +20,7 @@ jobs:
     outputs:
       should_build: ${{ steps.check.outputs.should_build }}
     steps:
-      - uses: chihqiang/checkout-action@main
-        with:
-          repo: https://codeberg.org/rauldipeas/linux-rdx
-          branch: main
+      - uses: actions/checkout@v4
       - name: Verificar nova versão
         id: check
         run: |
@@ -46,10 +43,7 @@ jobs:
           root-reserve-mb: 512
           swap-size-mb: 1024
           remove-dotnet: 'true'
-      - uses: chihqiang/checkout-action@main
-        with:
-          repo: https://codeberg.org/rauldipeas/linux-rdx
-          branch: main
+      - uses: actions/checkout@v4
       - name: Configuração do ambiente de compilação
         run: bash -x scripts/env.sh
       - name: Compilação do kernel Linux RDX
