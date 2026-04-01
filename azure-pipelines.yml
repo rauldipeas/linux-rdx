@@ -1,0 +1,76 @@
+name: Linux RDX
+
+trigger:
+  branches:
+    include:
+      - main
+  paths:
+    exclude:
+      - .last_version
+      - readme.md
+      - '*.jpg'
+      - '*.png'
+      - '*.svg'
+
+schedules:
+  - cron: "0 5,17 * * *"
+    displayName: Twice daily
+    branches:
+      include:
+        - main
+
+pool:
+  vmImage: ubuntu-latest
+
+jobs:
+  - job: check_version
+    displayName: Verificar nova versão
+    steps:
+      - checkout: self
+
+      - bash: |
+          LATEST=$(curl -s https://www.kernel.org/ | grep -A1 'longterm:' | grep -oP '\d+\.\d+\.\d+' | head -1)
+          CURRENT=$(cat .last_version 2>/dev/null || echo "0.0.0")
+          if [ "$LATEST" != "$CURRENT" ]; then
+            echo "Nova versão disponível: $LATEST (atual: $CURRENT)"
+            echo "##vso[task.setvariable variable=should_build;isOutput=true]true"
+          else
+            echo "Nenhuma nova versão disponível"
+            echo "##vso[task.setvariable variable=should_build;isOutput=true]false"
+          fi
+        name: check
+        displayName: Verificar versão
+
+  - job: build
+    displayName: Compilar kernel Linux RDX
+    dependsOn: check_version
+    condition: eq(dependencies.check_version.outputs['check.should_build'], 'true')
+    steps:
+      - checkout: self
+
+      - bash: |
+          sudo swapoff -a
+          sudo fallocate -l 1G /swapfile
+          sudo chmod 600 /swapfile
+          sudo mkswap /swapfile
+          sudo swapon /swapfile
+          sudo rm -rf /usr/share/dotnet
+        displayName: Preparar ambiente
+
+      - bash: bash -x scripts/env.sh
+        displayName: Configuração do ambiente de compilação
+
+      - bash: bash -x scripts/build.sh
+        displayName: Compilação do kernel Linux RDX
+        env:
+          GEMFURY_PUSH_TOKEN: $(GEMFURY_PUSH_TOKEN)
+
+      - bash: |
+          LATEST=$(curl -s https://www.kernel.org/ | grep -A1 'longterm:' | grep -oP '\d+\.\d+\.\d+' | head -1)
+          echo "$LATEST" > .last_version
+          git config user.email "pipeline@azure"
+          git config user.name "Azure Pipeline"
+          git add .last_version
+          git commit -m "^.last-version"
+          git push https://$(CODEBERG_TOKEN)@codeberg.org/rauldipeas/linux-rdx.git HEAD:main
+        displayName: Salvar versão compilada

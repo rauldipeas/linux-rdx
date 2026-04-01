@@ -13,7 +13,7 @@ sudo apt autoremove --purge -y\
     #google-cloud-sdk\
 sudo apt clean
 sudo swapoff -a
-sudo rm -r\
+sudo rm -fr\
     "$AGENT_TOOLSDIRECTORY"
-#    /opt/az
-#    /usr/share/dotnet
+    /opt/az
+    /usr/share/dotnet
