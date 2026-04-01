@@ -1,7 +1,5 @@
 #!/bin/bash
 set -e
-
-# Environment setup
 sudo apt autoremove --purge -y\
     azure-cli\
     '^dotnet-.*'\

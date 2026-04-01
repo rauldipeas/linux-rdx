@@ -1,12 +1,10 @@
 #!/bin/bash
 set -e
-
-# Config file
 cd linux*
 wget -q "$(curl -s http://ftp.debian.org/debian/pool/main/d/debian-archive-keyring/ | grep -oP 'debian-archive-keyring_[0-9.]+_all\.deb' | sort -V | tail -1 | sed 's|^|http://ftp.debian.org/debian/pool/main/d/debian-archive-keyring/|')"
 sudo apt install -y "$PWD"/debian-archive-keyring_*.deb
 echo 'deb http://deb.debian.org/debian sid main' | sudo tee /etc/apt/sources.list.d/debian.list
-sudo apt update
+sudo apt update -qq
 LATEST_CONFIG="$(apt-cache search '^linux-config-' | grep -P '^linux-config-\d+\.\d+\s' | sort -V | tail -1 | cut -d' ' -f1)"
 apt download "$LATEST_CONFIG"
 dpkg-deb -x linux-config-*.deb extracted/
@@ -14,7 +12,7 @@ xz -d extracted/usr/src/linux-config-*/config.amd64_none_amd64.xz
 cp extracted/usr/src/linux-config-*/config.amd64_none_amd64 .config
 rm -rf extracted/ "$PWD"/*.deb
 sudo rm /etc/apt/sources.list.d/debian.list
-sudo apt update
+sudo apt update -qq
 
 # Misc settings
 ## Desativa mitigations

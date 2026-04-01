@@ -1,6 +1,5 @@
 #!/bin/bash
 set -e
-# Linux RDX
 rm linux-libc-dev_*_amd64.deb
 mkdir -p meta-rdx/DEBIAN
 META_VERSION="$(find "$PWD"/*rdx*.deb | head -n1 | cut -d "_" -f2 | cut -d "-" -f1)"

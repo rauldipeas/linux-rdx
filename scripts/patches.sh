@@ -1,7 +1,5 @@
 #!/bin/bash
 set -e
-
-# Patches
 cd linux*
 
 ## M-Audio Fast Track C400
