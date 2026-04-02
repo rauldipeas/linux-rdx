@@ -45,9 +45,9 @@ jobs:
           remove-dotnet: 'true'
       - uses: actions/checkout@v4
       - name: Configuração do ambiente de compilação
-        run: bash -x scripts/env.sh
+        run: bash scripts/env.sh
       - name: Compilação do kernel Linux RDX
-        run: bash -x scripts/build.sh
+        run: bash build.sh
         env:
           GEMFURY_PUSH_TOKEN: ${{ secrets.GEMFURY_PUSH_TOKEN }}
       - name: Salvar versão compilada
