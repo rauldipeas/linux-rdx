@@ -43,7 +43,7 @@ jobs:
           root-reserve-mb: 512
           swap-size-mb: 1024
           remove-dotnet: 'true'
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v6
       - name: Configuração do ambiente de compilação
         run: bash scripts/env.sh
       - name: Compilação do kernel Linux RDX
@@ -53,11 +53,11 @@ jobs:
       - name: Salvar versão compilada
         run: |
           echo "$(curl -s https://www.kernel.org/ | grep -A1 'longterm:' | grep -oP '\d+\.\d+\.\d+' | head -1)" > .last_version
-      - uses: stefanzweifel/git-auto-commit-action@v5
+      - uses: stefanzweifel/git-auto-commit-action@v7
         with:
           commit_message: ^.last-version
           file_pattern: .last_version
-      - uses: otto-de/purge-deprecated-workflow-runs@v2
+      - uses: otto-de/purge-deprecated-workflow-runs@v4
         with:
           remove-cancelled: true
           remove-failed: true
