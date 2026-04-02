@@ -20,7 +20,7 @@ jobs:
     outputs:
       should_build: ${{ steps.check.outputs.should_build }}
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v6
       - name: Verificar nova versão
         id: check
         run: |
