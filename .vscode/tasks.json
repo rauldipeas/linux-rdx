@@ -1,0 +1,12 @@
+{
+  "version": "2.0.0",
+  "tasks": [
+    {
+      "label": "Envio do código",
+      "type": "shell",
+      "command": "bash",
+      "args": ["$PWD/.vscode/commit.sh"],
+      "group": "build"
+    }
+  ]
+}
