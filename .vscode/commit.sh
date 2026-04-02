@@ -20,7 +20,7 @@ auto_push() {
 	git add .
 	[[ -z "$msg" ]] && exit 0
 	git commit -m "$msg"
-	git push -fu origin main
+	git push -u origin main
 }
 auto_push
 printf "✅ Commit concluído!"
