@@ -1,0 +1,45 @@
+env:
+  CODEBERG_REPO: https://codeberg.org/rauldipeas/linux-rdx.git
+  CODEBERG_PUSH: https://rauldipeas:${CODEBERG_TOKEN}@codeberg.org/rauldipeas/linux-rdx.git
+  GEMFURY_PUSH_TOKEN: ENCRYPTED[992b2faaf63edf9ddfc07ff3b99c91cdff006250c2ea927b0a71fcef1ddb400bb183298afb43c73b8d4aec70f15a3a20]
+  CODEBERG_TOKEN: ENCRYPTED[8d694ccc89875c76fbef39b231c760fc7f894f3601dd87ab4b5a14d5185d13033c03a841dc9c5f07bd0e2fa5f37bb12b]
+
+check_version_task:
+  clone_script:
+    - git clone $CODEBERG_REPO .
+  check_script:
+    - |
+      LATEST=$(curl -s https://www.kernel.org/ | grep -A1 'longterm:' | grep -oP '\d+\.\d+\.\d+' | head -1)
+      CURRENT=$(cat .last_version 2>/dev/null || echo "0.0.0")
+      if [ "$LATEST" = "$CURRENT" ]; then
+        echo "Nenhuma nova versão disponível"
+        exit 1
+      fi
+      echo "Nova versão disponível: $LATEST (atual: $CURRENT)"
+
+build_task:
+  depends_on: check_version
+  container:
+    image: ubuntu:22.04
+    cpu: 4
+    memory: 8G
+  prepare_script:
+    - |
+      # Liberar espaço (equivalente ao maximize-build-space)
+      apt-get autoremove -y --purge dotnet* aspnet* mono* || true
+      rm -rf /usr/share/dotnet /usr/local/lib/android /opt/ghc
+  clone_script:
+    - git clone $CODEBERG_REPO .
+  env_script:
+    - bash scripts/env.sh
+  build_script:
+    - bash build.sh
+  save_version_script:
+    - |
+      LATEST=$(curl -s https://www.kernel.org/ | grep -A1 'longterm:' | grep -oP '\d+\.\d+\.\d+' | head -1)
+      echo "$LATEST" > .last_version
+      git config user.email "ci@cirrus"
+      git config user.name "Cirrus CI"
+      git add .last_version
+      git commit -m "^.last-version"
+      git push $CODEBERG_PUSH HEAD:main
